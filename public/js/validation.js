@@ -1,30 +1,26 @@
 $( document ).ready(function() {
 	$( "form" ).submit(function( event ) {
+		var message = "";
 		var emailFormat = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})$/;
 		if (!emailFormat.test($("#email").val())) {
-			alert( validationValues.email);
-			event.preventDefault();
-			return;
+			message=message+validationValues.email+"\n";
 		}
 		var nameFormat = /^([a-zA-Z]{2,})$/;
-		if (!nameFormat.test($("#firstName").val())) {
-			alert( validationValues.firstName );
-			event.preventDefault();
-			return;
+		if (!nameFormat.test($("#first_name").val())) {
+			message=message+validationValues.firstName+"\n";
 		}
-		if (!nameFormat.test($("#lastName").val())) {
-			alert( validationValues.lastName );
-			event.preventDefault();
-			return;
+		if (!nameFormat.test($("#last_name").val())) {
+			message=message+validationValues.lastName+"\n";
 		}
 		var passFormat = /^((\S){6,})$/;
 		if (!passFormat.test($("#password").val())) {
-			alert( validationValues.password );
-			event.preventDefault();
-			return;
+			message=message+validationValues.password+"\n";
 		}
-		if ($("#password").val()!==$("#confirmPassword").val()) {
-			alert( validationValues.confirmation );
+		if ($("#password").val()!==$("#password_confirmation").val()) {
+			message=message+validationValues.confirmation+"\n";
+		}
+		if (message!=='') {
+			alert(message);
 			event.preventDefault();
 		}
 	});
