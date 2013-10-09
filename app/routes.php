@@ -51,3 +51,25 @@ Route::group(array('prefix' => $locale), function() {
 	Route::get('changelanguage', array ('as' => 'language', 'uses' => 'HomeController@changeLanguage'));
 	
 });
+
+Route::group(array('prefix' => 'todos'), function() {
+	
+	Route::get('/', array( 'as' => 'todoshome', function() {
+		return View::make('todoshome');
+	}));
+	
+	Route::put('/changepriority', array('as' => 'changepriority', 'uses' => 'TodosController@changePriority'));
+	
+	Route::put('{id}/edit', array('as' => 'edit', 'uses' => 'TodosController@edit'));
+	
+	Route::post('new', array('as' => 'new', 'uses' => 'TodosController@newTodo'));
+	
+	Route::put('{id}/changedone', array('as' => 'changedone', 'uses' => 'TodosController@changeDone'));
+	
+	Route::delete('{id}/delete', array('as' => 'delete', 'uses' => 'TodosController@delete'));
+	
+	Route::get('/list', array('as' => 'list', 'uses' => 'TodosController@listTodos'));
+	
+	Route::get('/{id}/get', array('as' => 'get', 'uses' => 'TodosController@get'));
+	
+});

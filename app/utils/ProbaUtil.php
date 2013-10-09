@@ -8,7 +8,16 @@ class ProbaUtil
 		});
 	}
 	
-	
+	public static function printVar($val)
+	{
+		if (is_array($val)) {
+			foreach ($val as $val1) {
+				ProbaUtil::printVar($val1);
+			}
+		} else {
+			echo $val." ";
+		}
+	}
 	
 }
 

@@ -1,0 +1,12 @@
+<h1>Todo list:</h1>
+<ul>
+    <il ng-repeat="todo in todos" ng-click="select(todo)">
+        <input type="checkbox" ng-model="todo.done" ng-change="setDone(todo)" ng-checked="todo.done"> 
+        <span class="{{checkClass(todo)}}">{{todo.text}}</span>
+         <a href="#/edit/{{todo.id}}">edit</a> <button ng-click="deleteTodo(todo.id)">delete</button>
+        <br/>
+    </il>
+</ul>
+<button ng-click="increasePriority()" ng-disabled="notSelected()">Increase priority<button ng-click="decreasePriority()" ng-disabled="notSelected()">Decrease priority</button>
+<br/>
+<a href="#/new" class="button">Add a new Todo item</a>

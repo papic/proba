@@ -1,4 +1,6 @@
 <!doctype html>
+<?php setcookie("kuki1", "kuki1", time()-10, '/start') ?>
+<?php setcookie("kuki", "kuki", time()-10, '/') ?>
 <html>
 	<head>
     	<meta charset="UTF-8">

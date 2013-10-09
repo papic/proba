@@ -21,4 +21,5 @@
 	<div>
     	{{ trans('messages.welcome-Welcome') }}
     </div>
+    {{ HTML::script("js/Klase.js") }}
 @stop
