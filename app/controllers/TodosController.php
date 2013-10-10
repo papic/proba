@@ -5,17 +5,10 @@ class TodosController extends BaseController {
 	public function changePriority()
 	{
 		$params=Input::only("todo1Id","todo2Id");
-		$todo1 = Todo::find($params["todo1Id"]);
-		$todo2 = Todo::find($params["todo2Id"]);
-		$pom = $todo1->priority;
-		$todo1->priority = $todo2->priority;
-		$todo2->priority = $pom;
-		$todo1->save();
-		$todo2->save();
-		return Response::json("ok");
+		Todo::changePriority($params["todo1Id"], $params["todo2Id"]);
 	}
 	
-	public function newTodo()
+	public function store()
 	{
 		$params=Input::only("text");
 		$validator = Validator::make(
@@ -23,14 +16,13 @@ class TodosController extends BaseController {
 			Todo::$saveRules
 		);
 		if ($validator->fails()) {
-			return Response::make("Text cannot be blank", 500);
+			return Response::make("Text cannot be blank", 400);
 		}
 		$params["priority"]=Todo::max('priority')+1;
 		$user = Todo::create($params);
-		return Response::json("ok");
 	}
 	
-	public function edit($id)
+	public function update($resource)
 	{
 		$params=Input::only("text");
 		$validator = Validator::make(
@@ -38,39 +30,36 @@ class TodosController extends BaseController {
 				Todo::$saveRules
 		);
 		if ($validator->fails()) {
-			return Response::make("Text cannot be blank", 500);
+			return Response::make("Text cannot be blank", 400);
 		}
-		$todo=Todo::find($id);
+		$todo=Todo::findOrFail($resource);
 		$todo->text=$params["text"];
 		$todo->save();
-		return Response::json("ok");
 	}
 	
-	public function delete($id)
+	public function destroy($resource)
 	{
-		$todo=Todo::find($id);
+		$todo=Todo::findOrFail($resource);
 		$todo->delete();
-		return Response::json("ok");
 	}
 	
-	public function changeDone($id)
+	public function changeDone($resource)
 	{
 		$params=Input::only("done");
-		$todo=Todo::find($id);
+		$todo=Todo::findOrFail($resource);
 		$todo->done=$params["done"];
 		$todo->save();
-		return Response::json("ok");
 	}
 	
-	public function listTodos()
+	public function index()
 	{
 		$todolist = Todo::orderBy('priority', 'asc')->get();
 		return Response::json($todolist);
 	}
 	
-	public function get($id)
+	public function show($resource)
 	{
-		$todo=Todo::find($id);
+		$todo=Todo::findOrFail($resource);
 		return Response::json($todo);
 	}
 	

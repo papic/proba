@@ -7,6 +7,6 @@
         <br/>
     </il>
 </ul>
-<button ng-click="increasePriority()" ng-disabled="notSelected()">Increase priority<button ng-click="decreasePriority()" ng-disabled="notSelected()">Decrease priority</button>
+<button ng-click="increasePriority()" ng-disabled="notSelected() || !isProcessable()">Increase priority<button ng-click="decreasePriority()" ng-disabled="notSelected() || !isProcessable()">Decrease priority</button>
 <br/>
 <a href="#/new" class="button">Add a new Todo item</a>

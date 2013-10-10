@@ -10,16 +10,15 @@ class Todo extends Model {
 		'text' => 'required'
 	);
 	
-	public function getText() {
-		return $this->text;
-	}
-	
-	public function getPriority() {
-		return $this->priority;
-	}
-	
-	public function getDone() {
-		return $this->done;
+	public static function changePriority($todo1Id, $todo2Id)
+	{
+		$todo1 = Todo::findOrFail($todo1Id);
+		$todo2 = Todo::findOrFail($todo2Id);
+		$pom = $todo1->priority;
+		$todo1->priority = $todo2->priority;
+		$todo2->priority = $pom;
+		$todo1->save();
+		$todo2->save();
 	}
 
 }
